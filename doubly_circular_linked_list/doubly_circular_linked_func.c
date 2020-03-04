@@ -383,6 +383,126 @@ void Print_doubly_c_node_GAME_1(Node* head_node, int direction)
 	}
 }
 
+void Print_doubly_c_node_LR_GAME1(Node *head_node, int direction, int mode, int times)//게임 이전에 만들었던 것을 재활용
+{
+	Node *pointing_node = head_node;
+	int cnt = 0;
+
+	if (direction == RIGHT)
+	{
+		if (pointing_node->R_Next == NULL)
+		{
+			puts("리스트 내부에 노드가 없습니다.");
+		}
+		else//리스트 내부에 노드가 있는 경우
+		{
+			pointing_node = pointing_node->R_Next;//pointing_node가 첫번째 노드를 가리킴
+			for (cnt = 0; cnt < times; cnt++)
+			{
+				printf("%d번째\n", cnt + 1);
+				if (mode == RIGHT)
+				{
+					while (pointing_node->R_Next != head_node->R_Next)
+					{
+						printf("%c ", pointing_node->nData);
+						pointing_node = pointing_node->R_Next;//pointing_node가 첫번째 노드를 가리킴
+					}
+					printf("%c ", pointing_node->nData);
+					printf("\n");
+					pointing_node = pointing_node->R_Next;
+				}
+				else
+				{
+					while (pointing_node->L_Next != head_node->R_Next)
+					{
+						printf("%c ", pointing_node->nData);
+						pointing_node = pointing_node->L_Next;//pointing_node가 첫번째 노드를 가리킴
+					}
+					printf("%c ", pointing_node->nData);
+					printf("\n");
+					pointing_node = pointing_node->L_Next;
+				}
+			}
+		}
+	}
+	else
+	{
+		if (pointing_node->L_Next == NULL)
+		{
+			puts("리스트 내부에 노드가 없습니다.");
+		}
+		else//리스트 내부에 노드가 있는 경우
+		{
+			pointing_node = pointing_node->L_Next;//pointing_node가 첫번째 노드를 가리킴
+			for (cnt = 0; cnt < times; cnt++)
+			{
+				printf("%d번째\n", cnt + 1);
+				if (mode == RIGHT)
+				{
+					while (pointing_node->R_Next != head_node->L_Next)
+					{
+						printf("%c ", pointing_node->nData);
+						pointing_node = pointing_node->R_Next;//pointing_node가 첫번째 노드를 가리킴
+					}
+					printf("%c ", pointing_node->nData);
+					printf("\n");
+					pointing_node = pointing_node->R_Next;
+				}
+				else
+				{
+					while (pointing_node->L_Next != head_node->L_Next)
+					{
+						printf("%c ", pointing_node->nData);
+						pointing_node = pointing_node->L_Next;//pointing_node가 첫번째 노드를 가리킴
+					}
+					printf("%c ", pointing_node->nData);
+					printf("\n");
+					pointing_node = pointing_node->L_Next;
+				}
+			}
+		}
+	}
+}
+
+void Order_GAME_1(Node *head_node)
+{
+	//리스트의 첫번째 노드를 가리킴
+	Node *pointing_upper = head_node->R_Next;//리스트의 첫번째 노드를 가리킴
+	Node *pointing_lower = head_node->L_Next;
+	int cnt = 0;
+
+	while (1)
+	{
+		
+		if (cnt == 26)
+		{
+			head_node->L_Next = pointing_lower;
+			break;
+		}
+
+		while (pointing_lower->R_Next != head_node->L_Next)//초기화 단계에서 진입한 상태로 들어옴
+		{
+			if (pointing_upper->nData == (pointing_lower->nData - 32))//소문자 리스트에서 같은 것을 찾으면
+			{
+				//발견후 해당 노드의 링크 연결 수정
+				pointing_lower->L_Next->R_Next = pointing_lower->R_Next;
+				pointing_lower->R_Next->L_Next = pointing_lower->L_Next;
+				//정렬할 노드를 현재 헤드 노드가 가리키고 있는 링크의 첫노드 오른쪽으로 삽입
+				SI_doubly_c_node_sub_func_right(head_node->L_Next, pointing_lower);
+				//헤드가 가리키는 노드 수정
+				head_node->L_Next = pointing_lower;
+				//소문자 비교 노드를 오른쪽으로 이동
+				pointing_lower = pointing_lower->R_Next;
+				//대문자 비교 노드를 왼쪽으로 이동
+				pointing_upper = pointing_upper->L_Next;
+				cnt++;
+				break;
+			}
+			pointing_lower = pointing_lower->R_Next;
+		}
+	}
+}
+
 #ifdef NOTYET
 
 int get_keyboard()//키 값을 받아서 반환 한다

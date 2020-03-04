@@ -17,4 +17,6 @@ int Make_randnum_alphabet_GAME_1(Node *head_node);
 void Add_doubly_c_node_GAME_1(Node* head_node, int item);
 int Count_doubly_c_node_GAME_1(Node* head_node, int direction);
 void Print_doubly_c_node_GAME_1(Node* head_node, int direction);
+void Print_doubly_c_node_LR_GAME1(Node *head_node, int direction, int mode, int times);
+void Order_GAME_1(Node *head_node);
 #endif

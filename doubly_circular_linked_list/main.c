@@ -5,9 +5,9 @@
 int main()
 {
 	Node *head_node = Add_new_doubly_C_node();
-	srand((unsigned int)time(NULL));
-
 #ifdef GAME_1
+	int Right, Left;
+	srand((unsigned int)time(NULL));
 
 	while ((Count_doubly_c_node_GAME_1(head_node, RIGHT) != 26) || (Count_doubly_c_node_GAME_1(head_node, LEFT) != 26))
 		//중복이 없기 떄문에26개씩 뽑으면 딱 맞음
@@ -15,10 +15,30 @@ int main()
 		Add_doubly_c_node_GAME_1(head_node, Make_randnum_alphabet_GAME_1(head_node));
 	}
 	puts("대문자 출력");
+	Right = Count_doubly_c_node_GAME_1(head_node, RIGHT);
 	Print_doubly_c_node_GAME_1(head_node, RIGHT);
-	puts("소문자 출력");
-	Print_doubly_c_node_GAME_1(head_node, LEFT);
+	Print_doubly_c_node_LR_GAME1(head_node, RIGHT, LEFT, 1);
+	Print_doubly_c_node_LR_GAME1(head_node, RIGHT, RIGHT, 1);
 
+	puts("소문자 출력");
+	Left = Count_doubly_c_node_GAME_1(head_node, LEFT);
+	Print_doubly_c_node_GAME_1(head_node, LEFT);
+	Print_doubly_c_node_LR_GAME1(head_node, LEFT, RIGHT, 1);
+	Print_doubly_c_node_LR_GAME1(head_node, LEFT, LEFT, 1);
+
+
+	puts("");
+	puts("");
+	puts("알파벳 짝맞추기 게임");
+	puts("정렬전 알파벳");
+	printf("대문자:"); Print_doubly_c_node_GAME_1(head_node, RIGHT);
+	printf("소문자:"); Print_doubly_c_node_GAME_1(head_node, LEFT);
+	puts("");
+	puts("");
+	puts("정렬후 알파벳");
+	Order_GAME_1(head_node);
+	printf("대문자:"); Print_doubly_c_node_GAME_1(head_node, RIGHT);
+	printf("소문자:"); Print_doubly_c_node_GAME_1(head_node, LEFT);
 	system("pause");
 
 #endif
